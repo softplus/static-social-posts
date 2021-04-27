@@ -1,5 +1,6 @@
 # static-social-posts
 Embedding social posts in a privacy-preserving way -- using Hugo and Puppeteer. 
+
 This code renders tweets locally and embeds them as a screenshot in your posts.
 This means users don't need to load Twitter scripts when viewing your pages, making everything faster & more private.
 
