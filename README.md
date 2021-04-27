@@ -1,7 +1,12 @@
 # static-social-posts
-Embedding social posts in a privacy-preserving way -- using Hugo and Puppeteer
+Embedding social posts in a privacy-preserving way -- using Hugo and Puppeteer. 
+This code renders tweets locally and embeds them as a screenshot in your posts.
+This means users don't need to load Twitter scripts when viewing your pages, making everything faster & more private.
 
-Sample at https://johnmu.com/tweet-screenshot-embeds/
+It currently supports Twitter / tweets. 
+I'll expand for the other kinds of content (videos, posts, whatever) when I have time. 
+
+Sample at https://johnmu.com/tweet-screenshot-embeds/ (and below)
 
 Built on the [Hugo shortcodes](https://gohugo.io/content-management/shortcodes/#tweet) setup. 
 Other platforms may vary, feel free to steal the idea.
