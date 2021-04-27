@@ -3,6 +3,9 @@ Embedding social posts in a privacy-preserving way -- using Hugo and Puppeteer
 
 Sample at https://johnmu.com/tweet-screenshot-embeds/
 
+Built on the [Hugo shortcodes](https://gohugo.io/content-management/shortcodes/#tweet) setup. 
+Other platforms may vary, feel free to steal the idea.
+
 # Setup
 
 1. Copy all contents into your main Hugo folder. 
@@ -20,6 +23,19 @@ npm i puppeteer
 4. Run `tweet_preprocess.sh` to test
 
 5. Add `code/tweet_preprocess.sh` to whatever you use to deploy.
+
+# Usage
+
+When writing posts, use the the following shortcodes to swap in the image-versions of tweets:
+
+```
+{{< johnmu/tweet 877500564405444608 >}}
+
+{{< johnmu/tweet "https://twitter.com/GoHugoIO/status/877500564405444608" >}}
+```
+
+It works either by tweet ID or with the full URL (easier to copy & paste). 
+After adding these to a post, you must preprocess the tweets before hosting with Hugo.
 
 # What it does
 
