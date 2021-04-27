@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Show my tweet</title>
+    <meta name="robots" content="none">
+    <style>
+      body { background-color: white;  } 
+      div#fetched { max-width: 550px; text-align: center;
+                font-family: apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                font-weight: 300;font-size: 0.8em; margin-top: 1em; }
+      #bounding { max-width: 550px; }
+    </style>
+
+    <script src="https://platform.twitter.com/widgets.js"></script>
+  
+  </head>
+
+  <body>
+    <div id="bounding">
+        <div id="container"></div>
+        <div id="fetched">Fetched <span id="fetchdate"></span></div>      
+    </div>
+
+    <script type="text/javascript">
+
+      // display tweet
+      let tweetId="%%TWEETID%%";
+      window.twttr.widgets.createTweet(
+          tweetId, 
+          document.getElementById('container') )
+        .then( function( el ) {
+          console.log('Tweet added.');  
+        });;
+
+      // Add approximate fetch date
+      var displayDate = new Date(Date.now());
+      displayDate.setMilliseconds(0); displayDate.setSeconds(0);
+      displayDate.setMinutes(parseInt(displayDate.getMinutes()/5)*5); // don't like uneven numbers
+      let showDate = displayDate.toISOString().replace(":00.000", "").replace("T", " ");
+      document.getElementById("fetchdate").innerHTML = showDate;
+    </script>
+</body>
+</html>

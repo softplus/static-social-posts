@@ -1,0 +1,14 @@
+
+{{- $tweeturl := .Get 0 -}}
+{{- $tweetid := .Get 0 -}}
+{{- $tweetids := split $tweeturl "/" -}}
+{{- if gt (len $tweetids) 1 -}}
+    {{- $tweetid = index $tweetids 5 -}}
+{{- else -}}
+    {{- if eq (printf "%T" $tweetid) "int" -}}{{- $tweetid = printf "%d" $tweetid -}}{{- end -}}
+    {{- $tweeturl = printf "https://twitter.com/x/status/%s" $tweetid -}}
+{{- end -}}
+<a href="{{ $tweeturl }}" rel="nofollow noreferrer noopener" target="_blank">
+    <img src="/captures/tweet_{{ $tweetid }}.png" /></a><br />
+<a href="{{ $tweeturl }}" class="external" rel="nofollow noreferrer noopener" target="_blank">
+    View tweet</a>
