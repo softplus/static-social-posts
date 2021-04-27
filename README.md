@@ -58,4 +58,4 @@ After adding these to a post, you must preprocess the tweets before hosting with
 
 # Sample
 
-![](tweet_877500564405444608.png)
+![](static/captures/tweet_877500564405444608.png)
