@@ -17,20 +17,33 @@ Other platforms may vary, feel free to steal the idea.
 1. Copy all contents into your main Hugo folder. 
 /code/ contains the scripts.
 
-2. Install puppeteer in code
+1. Install puppeteer and html-to-text
 
 ```
 cd code
-npm i puppeteer
+npm i puppeteer html-to-text
 ```
 
-3. Adjust `tweet_preprocess.sh` to match content & static directories
+3. Adjust `tweet_preprocess.sh` and `toot_preprocess.sh` to match content & static directories
 
-4. Run `tweet_preprocess.sh` to test
+4. Run `tweet_preprocess.sh` and `toot_preprocess.sh` to test
 
-5. Add `code/tweet_preprocess.sh` to whatever you use to deploy.
+5. Add `code/tweet_preprocess.sh` and `code/toot_preprocess.sh` to whatever you use to deploy.
 
-# Usage
+# Mastadon Usage
+
+When writing posts, use the the following shortcode to swap in the image-versions of the post:
+
+```
+{{< johnmu/toot "https://mastodon.social/@johnmu/109292050061122141">}}
+```
+
+It works with the full URL of the post (easier to copy & paste).
+After adding these to a post, you must preprocess the posts before hosting with Hugo.
+
+Some Mastadon servers are quite slow. When creating the screenshot, Puppeteer waits until the embedded iframe of the post is resized, to try to capture the full content. There's a 20 second timeout should that not happen. The post includes a title-attribute for the image with a truncated version of the post's text.
+
+# Twitter Usage
 
 When writing posts, use the the following shortcodes to swap in the image-versions of tweets:
 
@@ -45,23 +58,28 @@ After adding these to a post, you must preprocess the tweets before hosting with
 
 # What it does
 
-1. Using grep, it finds all mentions of tweets
-2. Any newly mentioned tweets are rendered locally using Puppeteer / Chrome, and saved as a screenshot
-3. When Hugo runs, it swaps out mentions against an embedded image & link to the tweet. 
+1. Using grep, it finds all mentions of tweets / toots
+2. Any newly mentioned posts are rendered locally using Puppeteer / Chrome, and saved as a screenshot (this takes a while initially)
+3. When Hugo runs, it swaps out mentions against an embedded image & link to the post.
 
 # Cons
 
 * No responsive layout: small screens will get smaller text (image scaling rather than rewrapping)
-* Currently English-only Twitter UI
+* Currently English-only tweets and Mastadon server default language
 * Twitter might not like embedding images (though I didn't spot anything in the TOS).
-* When tweets are taken down, you have to manually remove the screenshot file if someone contacts you (or just empty the folder and rerun the script)
+* When posts are taken down, you have to manually remove the screenshot file if someone contacts you (or just empty the folder and rerun the script)
 
 # To do
 
 * Ditto for YouTube
 * Ditto for Instagram
-* Ditto for XYZ social network du jour
 
 # Sample
 
+Twitter:
+
 ![](static/captures/tweet_877500564405444608.png)
+
+Mastadon:
+
+![](static/captures/toot_109292050061122141.png)
