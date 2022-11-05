@@ -30,7 +30,7 @@ npm i puppeteer html-to-text
 
 5. Add `code/tweet_preprocess.sh` and `code/toot_preprocess.sh` to whatever you use to deploy.
 
-# Mastadon Usage
+# Mastodon Usage
 
 When writing posts, use the the following shortcode to swap in the image-versions of the post:
 
@@ -39,9 +39,10 @@ When writing posts, use the the following shortcode to swap in the image-version
 ```
 
 It works with the full URL of the post (easier to copy & paste).
+Mastodon needs the full URL since posts are located on the user's server, not in a central repository.
 After adding these to a post, you must preprocess the posts before hosting with Hugo.
 
-Some Mastadon servers are quite slow. When creating the screenshot, Puppeteer waits until the embedded iframe of the post is resized, to try to capture the full content. There's a 20 second timeout should that not happen. The post includes a title-attribute for the image with a truncated version of the post's text.
+Some Mastodon servers are quite slow. When creating the screenshot, Puppeteer waits until the embedded iframe of the post is resized, to try to capture the full content. There's a 20 second timeout should that not happen. The post includes a title-attribute for the image with a truncated version of the post's text.
 
 # Twitter Usage
 
@@ -65,7 +66,7 @@ After adding these to a post, you must preprocess the tweets before hosting with
 # Cons
 
 * No responsive layout: small screens will get smaller text (image scaling rather than rewrapping)
-* Currently English-only tweets and Mastadon server default language
+* Currently English-only tweets and Mastodon server default language
 * Twitter might not like embedding images (though I didn't spot anything in the TOS).
 * When posts are taken down, you have to manually remove the screenshot file if someone contacts you (or just empty the folder and rerun the script)
 
@@ -80,6 +81,6 @@ Twitter:
 
 ![](static/captures/tweet_877500564405444608.png)
 
-Mastadon:
+Mastodon:
 
 ![](static/captures/toot_109292050061122141.png)
