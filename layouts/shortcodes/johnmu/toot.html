@@ -1,0 +1,15 @@
+
+{{- $tooturl := .Get 0 -}}
+{{- $urlparts := split $tooturl "/" -}}
+{{- $tootid := index $urlparts 4 -}}
+{{- $imgfile := (add "toot_" ( add ( $tootid | safeURL ) ".png") ) -}}
+{{- $img := imageConfig (add "/static/captures/" $imgfile ) -}}
+{{- $textfile := (add "/static/captures/" (add $imgfile ".txt" )) -}}
+{{- $alttext := os.ReadFile $textfile -}}
+<a href="{{ $tooturl }}" rel="nofollow noreferrer noopener" target="_blank">
+    <img src="/captures/{{- $imgfile -}}" style="margin-left:0"
+    width="{{ $img.Width }}" height="{{ $img.Height }}" loading="lazy" 
+    alt="{{ $alttext }}" title="{{ $alttext }}"
+    /></a><br />
+<a href="{{ $tooturl }}" class="external" rel="nofollow noreferrer noopener" target="_blank">
+    View post</a>

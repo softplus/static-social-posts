@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Show my toot</title>
+    <meta name="robots" content="none">
+    <style>
+      body { background-color: white;  } 
+      div#fetched { max-width: 550px; text-align: center;
+                font-family: apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                font-weight: 300;font-size: 0.8em; margin-top: 1em; }
+      #bounding { max-width: 550px; }
+    </style>
+
+    <script src="https://mastodon.social/embed.js"></script>
+  
+  </head>
+
+  <body><!-- hxxps://mastodon.social/@johnmu/109292050061122141 // %%TOOTID%% -->
+    <div id="bounding">
+        <div id="container">
+          <iframe id="the_post" src="https://mastodon.social/@johnmu/109292050061122141/embed" class="mastodon-embed"
+            style="max-width: 100%; border: 0" width="550px"></iframe>
+        </div>
+        <div id="fetched">Fetched <span id="fetchdate"></span></div>      
+    </div>
+
+    <script type="text/javascript">
+      // Add approximate fetch date
+      var displayDate = new Date(Date.now());
+      displayDate.setMilliseconds(0); displayDate.setSeconds(0);
+      displayDate.setMinutes(parseInt(displayDate.getMinutes()/5)*5); // don't like uneven numbers
+      let showDate = displayDate.toISOString().replace(":00.000", "").replace("T", " ");
+      document.getElementById("fetchdate").innerHTML = showDate;
+
+      function notifyComplete() {
+        let notify_element = document.createElement("span");
+        notify_element.id = "content_ready";
+        document.getElementById("bounding").appendChild(notify_element);
+        console.log("notifyComplete()");
+      }
+
+      let resizeCounter = 0;
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          resizeCounter++; // expect 2 resizes
+          if (resizeCounter==2) notifyComplete();
+        }
+      });
+
+      resizeObserver.observe(document.getElementById("bounding"));
+
+      setTimeout(notifyComplete, 20000); // in case resize doesn't trigger
+
+    </script>
+</body>
+</html>
