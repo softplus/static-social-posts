@@ -47,7 +47,7 @@ try {
     for (const fn of filenames) { 
         console.log("Saving ", fn); 
         await page.screenshot({path: fn}); 
-        var stats = fs.statSync(fn);
+        const stats = await fsPromises.stat(fn);
         filesizes.push(stats.size);
     }; 
     let i = filesizes.indexOf(Math.max(...filesizes));
