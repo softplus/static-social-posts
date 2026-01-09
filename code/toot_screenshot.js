@@ -82,10 +82,10 @@ try {
                          { selector: 'img', format: 'skip' }] });
         let text_version = user_name + " posted: " + post_text;
         if (text_version.length>204) text_version = text_version.substring(0, 200) + " ...";
-        text_version = text_version.replace('"', "'"); // since we wrap it in alt
-        text_version = text_version.replace('<', " "); // to be safe
-        text_version = text_version.replace('&', " "); // to be safe
-        text_version = text_version.replace('%', " "); // to be paranoid
+        text_version = text_version.replaceAll('"', "'"); // since we wrap it in alt
+        text_version = text_version.replaceAll('<', " "); // to be safe
+        text_version = text_version.replaceAll('&', " "); // to be safe
+        text_version = text_version.replaceAll('%', " "); // to be paranoid
         await fsPromises.writeFile(outfile + ".txt", text_version);
         console.log("Wrote caption to text file: " + text_version);
     } else {
