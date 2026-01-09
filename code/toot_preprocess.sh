@@ -28,16 +28,24 @@ grep -rh "{{< johnmu/toot " $CONTENT_PATH | grep -oP "(?<=/toot \")[^\">]*" | so
 
 countchecked=0
 countmade=0
+countfailed=0
 while read LINE; do
     URLPARTS=(${LINE//\// })
     IDPART=${URLPARTS[3]}
     FILE="$STATIC_PATH/captures/toot_$IDPART.png"
     if [ ! -f "$FILE" ]; then
         echo "$FILE does not exist: generating ..."
-        node toot_screenshot.js "$LINE" "$FILE"
-        countmade=$((countmade + 1))
+        if ! node toot_screenshot.js "$LINE" "$FILE"; then
+            echo "ERROR: Failed to generate screenshot for $LINE"
+            countfailed=$((countfailed + 1))
+        else
+            countmade=$((countmade + 1))
+        fi
     fi
     countchecked=$((countchecked + 1))
 done <tmp/tooturls.txt
 
 echo "Checked $countchecked toots, generated $countmade screenshots."
+if [ $countfailed -gt 0 ]; then
+    echo "WARNING: $countfailed screenshots failed to generate."
+fi

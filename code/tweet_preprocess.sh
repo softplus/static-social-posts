@@ -28,14 +28,22 @@ grep -rh "{{< johnmu/tweet " $CONTENT_PATH/ | grep -oP "(?<=[ \"/])[0-9]+" | sor
 
 countchecked=0
 countmade=0
+countfailed=0
 while read line; do
     FILE="$STATIC_PATH/captures/tweet_$line.png"
     if [ ! -f "$FILE" ]; then
         echo "$FILE does not exist: generating ..."
-        node tweet_screenshot.js "$line" "$FILE"
-        countmade=$((countmade + 1))
+        if ! node tweet_screenshot.js "$line" "$FILE"; then
+            echo "ERROR: Failed to generate screenshot for $line"
+            countfailed=$((countfailed + 1))
+        else
+            countmade=$((countmade + 1))
+        fi
     fi
     countchecked=$((countchecked + 1))
 done <tmp/tweetids.txt
 
 echo "Checked $countchecked tweets, generated $countmade screenshots."
+if [ $countfailed -gt 0 ]; then
+    echo "WARNING: $countfailed screenshots failed to generate."
+fi
